@@ -1,5 +1,16 @@
 **.pyc
 **/__pycache__
-**.vscode
 .tox/
 .coverage
+
+# Ignore env config
+.env
+
+# Ignore CSVs
+*.csv
+
+# VScode
+/.vscode
+
+# Logs
+*.out*
