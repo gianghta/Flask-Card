@@ -13,7 +13,9 @@ def create_app():
     app = Flask(__name__, instance_relative_config=False)
 
     # App configs
-    app.config.from_object('config.Config')
+    app.config.from_object('config.Configs')
+
+    db.init_app(app)
 
     # Plugins
     Migrate(db, app)
@@ -21,7 +23,10 @@ def create_app():
 
     with app.app_context():
         from . import auth
-        from . import routes
+        from . import main
+
+        app.register_blueprint(auth.auth)
+        app.register_blueprint(main.main)
 
         # Create Database Models
         db.create_all()
