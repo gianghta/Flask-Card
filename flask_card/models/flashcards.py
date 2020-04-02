@@ -1,4 +1,4 @@
-from flask_card import db
+from .flashcards import db
 
 
 class Flashcard(db.Model):

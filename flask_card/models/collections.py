@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask_card import db
+from .flashcards import db
 
 
 class Collection(db.Model):

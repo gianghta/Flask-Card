@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "flask-card"
+version = "0.1.0"
+description = "Flashcard for CS"
+authors = ["Giang Ta <thoanggiang98@gmail.com>"]
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+flask = "^1.1.1"
+flask_sqlalchemy = "^2.4.1"
+python-dotenv = "^0.12.0"
+flask_login = "^0.5.0"
+flask_migrate = "^2.5.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
