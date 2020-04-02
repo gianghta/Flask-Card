@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css">
+    {% block style %}
+    {% endblock %}
     <title>Flask Card</title>
-    <!-- Bootstrap stylesheet -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a href="#" class="navbar-brand">
-            <!-- <img src="#" height="28" alt="Icon"> -->
-            Flask Card
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                <a href="#" class="nav-item nav-link active">Home</a>
-                <a href="#" class="nav-item nav-link">Profile</a>
-            </div>
-            <div class="navbar-nav ml-auto">
-                <a href="#" class="nav-item nav-link">Login</a>
-            </div>
+    <section class="hero has-background-light is-fullheight">
+        <div class="hero-head">
+            <!-- START NAV -->
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="../">
+                            <img src="../static/img/book.png" alt="Logo">
+                            <h1 class="title">Flask Card</h1>
+                        </a>
+                        <span class="navbar-burger burger" data-target="navbarMenu">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div id="navbarMenu" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{url_for('main.index')}}" class="navbar-item">Dashboard</a>
+                            <a href="{{url_for('main.profile')}}" class="navbar-item">Profile</a>
+                            <a href="{{url_for('auth.login')}}" class="navbar-item">Login</a>
+                            <a href="{{url_for('auth.signup')}}" class="navbar-item">Sign Up</a>
+                            <a class="navbar-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- END NAV -->
         </div>
-    </nav>
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    <!-- Bootstrap JS-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<div class="hero-body">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </section>
+    
 </body>
 </html>
