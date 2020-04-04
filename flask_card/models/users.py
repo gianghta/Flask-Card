@@ -1,17 +1,17 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .flashcards import db, login_manager
+from .. import db
 from datetime import datetime
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     member_since = db.Column(db.DateTime, default=datetime.utcnow)
-    collections = db.relationship('CardCollection', backref='user', lazy='dynamic')
+    collections = db.relationship('Collection', backref='user', lazy='dynamic')
 
     def __init__(self, email, username, password):
         self.email = email

@@ -1,4 +1,4 @@
-from .flashcards import db
+from .. import db
 
 
 class Flashcard(db.Model):
@@ -8,7 +8,7 @@ class Flashcard(db.Model):
     answer = db.Column(db.Text)
     right_answered = db.Column(db.Boolean, default=False)
     wrong_answered = db.Column(db.Boolean, default=False)
-    collection_id = db.Column(db.Integer, db.ForeignKey('cardcollection.id'))
+    collection_id = db.Column(db.Integer, db.ForeignKey('collection.id'))
 
     def __repr__(self):
         return f'<Flashcard: {self.id}'
