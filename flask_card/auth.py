@@ -14,8 +14,8 @@ def login():
     form = LoginForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            email = form.get('email')
-            password = form.get('password')
+            email = form.email.data
+            password = form.password.data
             user = User.query.filter_by(email=email).first()
             if user and user.check_password(password=password):
                 login_user(user)
@@ -45,9 +45,9 @@ def signup():
     if request.method == 'POST':
         # User sign-up logic
         if form.validate_on_submit():
-            name = form.get('name')
-            email = form.get('email')
-            password = form.get('password')
+            name = form.name.data
+            email = form.email.data
+            password = form.password.data
             existing_user = User.query.filter_by(email=email).first()
             if existing_user is None:
                 user = User(email=email, username=name, password=password)
