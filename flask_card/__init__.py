@@ -16,8 +16,8 @@ def create_app():
     app.config.from_object('config.Configs')
 
     # Plugins
-    # Migrate(db, app)
     db.init_app(app)
+    Migrate(app, db)
     login_manager.init_app(app)
 
     with app.app_context():
@@ -28,6 +28,6 @@ def create_app():
         app.register_blueprint(main.main)
 
         # Create Database Models
-        db.create_all()
+        # db.create_all()
 
         return app
