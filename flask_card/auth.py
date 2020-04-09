@@ -13,15 +13,18 @@ def login():
 
     form = LoginForm()
     if request.method == 'POST':
-        email = form.get('email')
-        password = form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if user and user.check_password(password=password):
-            login_user(user)
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('main.index'))
-    flash('Invalid username/password combination')
-    return redirect(url_for('auth.login'))
+        if form.validate_on_submit():
+            email = form.get('email')
+            password = form.get('password')
+            user = User.query.filter_by(email=email).first()
+            if user and user.check_password(password=password):
+                login_user(user)
+                next_page = request.args.get('next')
+                return redirect(next_page or url_for('main.index'))
+        flash('Invalid username/password combination')
+        return redirect(url_for('auth.login'))
+    
+    return render_template("login.html", form=form)
 
 @auth.route('/logout')
 def logout():
@@ -69,4 +72,4 @@ def load_user(user_id):
 def unauthorized():
     """Redirect unauthorized users to Login page."""
     flash('You must be logged in to view that page.')
-    return redirect(url_for('auth_bp.login'))
+    return redirect(url_for('auth.login'))

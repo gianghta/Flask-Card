@@ -15,12 +15,10 @@ def create_app():
     # App configs
     app.config.from_object('config.Configs')
 
-    db.init_app(app)
-    login_manager.init_app(app)
-
     # Plugins
     # Migrate(db, app)
-    # login_manager.init_app(app)
+    db.init_app(app)
+    login_manager.init_app(app)
 
     with app.app_context():
         from . import auth
