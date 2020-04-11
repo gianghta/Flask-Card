@@ -28,7 +28,4 @@ def create_app():
         app.register_blueprint(auth.auth)
         app.register_blueprint(main.main)
 
-        # Create Database Models
-        # db.create_all()
-
         return app

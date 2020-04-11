@@ -15,7 +15,7 @@ services:
         - POSTGRES_HOST=postgres
         ports:
         - "8000:8000"
-        command: python wsgi.py
+        command: flask run
     
     postgres:
       environment:
