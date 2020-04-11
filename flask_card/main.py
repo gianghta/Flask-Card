@@ -5,9 +5,13 @@ from . import db
 main = Blueprint('main', __name__)
 
 @main.route('/')
-@login_required
 def index():
     return render_template("landing.html")
+
+@main.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
 
 @main.route('/profile')
 @login_required

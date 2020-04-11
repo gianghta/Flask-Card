@@ -1,0 +1,17 @@
+.errors {
+    margin-top: -11px;
+    margin-bottom: 1rem;
+    list-style: none;
+    padding: 0;
+    font-size: .9em;
+    color: #b75353;
+}
+
+.hero-background {
+    background-image: url("../img/school_supplies1-07.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #999;
+}
