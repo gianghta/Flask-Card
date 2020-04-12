@@ -1,16 +1,102 @@
 {% extends "base.html" %}
 
+{% block style %}
+<link rel="stylesheet" href="../static/css/dashboard.css">
+{% endblock %}
+
 {% block content %}
-<div class="hero-body">
-    <div class="container has-text-centered">
-        <div class="column is-6 is-offset-3">
-            <h1 class="title">
-                Test Dashboard
-            </h1>
-            <h2 class="subtitle">
-                This is a test dashboard
-            </h2>
-        </div>
+<section class="section first-section">
+    <div class="container status-bar">
+        <h1 class="title">
+            Hello {{ user.username }}! Welcome to Flask Card
+        </h1>
     </div>
-</div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3">
+                <div class="card">
+                    <header class="card-header">
+                      <p class="card-header-title">
+                          Test Collection title
+                      </p>
+                      <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                          <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </header>
+                    <div class="card-content">
+                      <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                        <br>
+                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                      </div>
+                    </div>
+                    <footer class="card-footer">
+                      <a href="#" class="card-footer-item">Save</a>
+                      <a href="#" class="card-footer-item">Edit</a>
+                      <a href="#" class="card-footer-item">Delete</a>
+                    </footer>
+                </div>
+            </div>
+            <div class="column is-3">
+              <div class="card">
+                  <header class="card-header">
+                    <p class="card-header-title">
+                        Test Collection title
+                    </p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                      <span class="icon">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </header>
+                  <div class="card-content">
+                    <div class="content">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                      <br>
+                      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Save</a>
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item">Delete</a>
+                  </footer>
+              </div>
+          </div>
+          <div class="column is-3">
+            <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">
+                      Test Collection title
+                  </p>
+                  <a href="#" class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                    <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                    <br>
+                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item">Save</a>
+                  <a href="#" class="card-footer-item">Edit</a>
+                  <a href="#" class="card-footer-item">Delete</a>
+                </footer>
+            </div>
+          </div>
+        </div>        
+    </div>
+</section>
 {% endblock %}
