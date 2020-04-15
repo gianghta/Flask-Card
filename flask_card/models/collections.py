@@ -6,6 +6,7 @@ class Collection(db.Model):
     __tablename__ = 'collection'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True)
+    category = db.Column(db.String(64), index=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     flashcards = db.relationship('Flashcard', backref='collection', lazy='dynamic')
