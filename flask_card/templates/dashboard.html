@@ -1,16 +1,67 @@
 {% extends "base.html" %}
 
+{% block style %}
+<link rel="stylesheet" href="../static/css/dashboard.css">
+{% endblock %}
+
 {% block content %}
-<div class="hero-body">
-    <div class="container has-text-centered">
-        <div class="column is-6 is-offset-3">
-            <h1 class="title">
-                Test Dashboard
-            </h1>
-            <h2 class="subtitle">
-                This is a test dashboard
-            </h2>
-        </div>
+<section class="section first-section">
+    <div class="container">
+        <h1 class="title status-bar">
+            Hello {{ user.username }}! Welcome to Flask Card
+        </h1>
     </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3">
+                <div class="card">
+                    <header class="card-header">
+                      <p class="card-header-title is-centered">
+                          Add new collection
+                      </p>
+                    </header>
+                    <div class="card-content">
+                      <div class="content has-text-centered" style="color: dodgerblue;">
+                        <a href="#" id="showModal">
+                          <i class="fas fa-plus-circle fa-5x"></i>
+                        </a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>
+
+<!-- Form to add a new collection -->
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Collection Information</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="e.g Alex Smith">
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Category</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Create</button>
+    </footer>
+  </div>
 </div>
 {% endblock %}

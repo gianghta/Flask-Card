@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 from .forms import SignupForm, LoginForm
-from .models import User
-from . import db, login_manager
-
-auth = Blueprint('auth', __name__)
+from ..models import User
+from .. import db, login_manager
+from . import auth
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
