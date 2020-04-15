@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css">
     {% block style %}
     {% endblock %}
+    <script src="https://kit.fontawesome.com/59eac59a51.js" crossorigin="anonymous"></script>
     <title>Flask Card</title>
 </head>
 <body>
@@ -47,6 +48,7 @@
 
 
     <!-- Scripts -->
+    <script src="../static/js/jquery-3.5.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         // Close mobile & tablet menu on item click
@@ -68,6 +70,15 @@
                 $('#navbar-burger-id').addClass('is-active');
                 $('#navbar-menu-id').addClass('is-active');
             }
+        });
+    </script>
+    <script>
+        $("#showModal").click(function() {
+            $(".modal").addClass("is-active");  
+        });
+
+        $(".delete").click(function() {
+            $(".modal").removeClass("is-active");
         });
     </script>
 </body>

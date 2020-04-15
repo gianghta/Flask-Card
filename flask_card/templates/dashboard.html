@@ -6,8 +6,8 @@
 
 {% block content %}
 <section class="section first-section">
-    <div class="container status-bar">
-        <h1 class="title">
+    <div class="container">
+        <h1 class="title status-bar">
             Hello {{ user.username }}! Welcome to Flask Card
         </h1>
     </div>
@@ -18,85 +18,37 @@
             <div class="column is-3">
                 <div class="card">
                     <header class="card-header">
-                      <p class="card-header-title">
-                          Test Collection title
+                      <p class="card-header-title is-centered">
+                          Add new collection
                       </p>
-                      <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                          <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </a>
                     </header>
                     <div class="card-content">
-                      <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                        <br>
-                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                      <div class="content has-text-centered" style="color: dodgerblue;">
+                        <a href="#" id="showModal">
+                          <i class="fas fa-plus-circle fa-5x"></i>
+                        </a>
                       </div>
                     </div>
-                    <footer class="card-footer">
-                      <a href="#" class="card-footer-item">Save</a>
-                      <a href="#" class="card-footer-item">Edit</a>
-                      <a href="#" class="card-footer-item">Delete</a>
-                    </footer>
                 </div>
             </div>
-            <div class="column is-3">
-              <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                        Test Collection title
-                    </p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                      <span class="icon">
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                      </span>
-                    </a>
-                  </header>
-                  <div class="card-content">
-                    <div class="content">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                      <br>
-                      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                    </div>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="#" class="card-footer-item">Save</a>
-                    <a href="#" class="card-footer-item">Edit</a>
-                    <a href="#" class="card-footer-item">Delete</a>
-                  </footer>
-              </div>
-          </div>
-          <div class="column is-3">
-            <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title">
-                      Test Collection title
-                  </p>
-                  <a href="#" class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </header>
-                <div class="card-content">
-                  <div class="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                    <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                    <br>
-                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                  </div>
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Save</a>
-                  <a href="#" class="card-footer-item">Edit</a>
-                  <a href="#" class="card-footer-item">Delete</a>
-                </footer>
-            </div>
-          </div>
         </div>        
     </div>
 </section>
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Save changes</button>
+      <button class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
 {% endblock %}
