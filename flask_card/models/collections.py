@@ -11,5 +11,9 @@ class Collection(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     flashcards = db.relationship('Flashcard', backref='collection', lazy='dynamic')
 
+    def __init__(self, name, category):
+        self.name = name
+        self.category = category
+
     def __repr__(self):
         return f'<Flashcard Collection: {self.name}>'
