@@ -7,6 +7,13 @@ from . import auth
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+
+    User login page
+
+    GET: Serve login page
+    POST: If credentials submitted is valid, redirected to dashboard/main page 
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -27,6 +34,10 @@ def login():
 
 @auth.route('/logout')
 def logout():
+    """
+
+    User logout method
+    """
     logout_user()
     flash('You have been logged out.')
     return redirect(url_for('auth.login'))

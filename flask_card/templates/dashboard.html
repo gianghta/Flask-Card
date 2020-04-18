@@ -15,22 +15,38 @@
 <section class="section">
     <div class="container">
         <div class="columns">
-            <div class="column is-3">
-                <div class="card">
-                    <header class="card-header">
-                      <p class="card-header-title is-centered">
-                          Add new collection
-                      </p>
-                    </header>
-                    <div class="card-content">
-                      <div class="content has-text-centered" style="color: dodgerblue;">
-                        <a href="#" id="showModal">
-                          <i class="fas fa-plus-circle fa-5x"></i>
-                        </a>
-                      </div>
-                    </div>
+          {% for item in collection %}
+          <div class="column is-3">
+            <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title is-centered">
+                      {{item.name}}
+                  </p>
+                </header>
+                <div class="card-content">
+                  <div class="content has-text-centered" style="color: dodgerblue;">
+                    {{item.category}}
+                  </div>
                 </div>
             </div>
+          </div>
+          {% endfor %}
+          <div class="column is-3">
+              <div class="card">
+                  <header class="card-header">
+                    <p class="card-header-title is-centered">
+                        Add new collection
+                    </p>
+                  </header>
+                  <div class="card-content">
+                    <div class="content has-text-centered" style="color: dodgerblue;">
+                      <a href="#" id="showModal">
+                        <i class="fas fa-plus-circle fa-5x"></i>
+                      </a>
+                    </div>
+                  </div>
+              </div>
+          </div>
         </div>        
     </div>
 </section>
@@ -43,25 +59,34 @@
       <p class="modal-card-title">Collection Information</p>
       <button class="delete" aria-label="close"></button>
     </header>
-    <section class="modal-card-body">
-      <!-- Content ... -->
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="e.g Alex Smith">
+    <form method="POST">
+      {{form.hidden_tag()}}
+      {% for message in get_flashed_messages() %}
+          <div class="notification is-danger is-light">
+              {{ message }}
+          </div>
+      {% endfor %}
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            {{form.name(class_="input", type="text", placeholder="e.g Quiz on Algorithms")}}
+          </div>
         </div>
-      </div>
-      
-      <div class="field">
-        <label class="label">Category</label>
-        <div class="control">
-          <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+        
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            {{form.category(class_="input", type="text", placeholder="e.g Data Structures")}}
+          </div>
         </div>
-      </div>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success">Create</button>
-    </footer>
+      </section>
+      <footer class="modal-card-foot">
+        <!-- <button class="button is-success">Create</button> -->
+        {{form.submit(class_="button is-success")}}
+      </footer>
+  </form>
   </div>
 </div>
 {% endblock %}
