@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .. import db
 from ..models import Collection, Category
 from . import main
-from .form import FlashcardCollectionForm
+from .form import FlashcardCollectionForm, FlashcardCollectionEditForm
 
 
 @main.route("/", methods=["GET", "POST"])
@@ -48,7 +48,16 @@ def index():
 @main.route("/<int:id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_collection(id):
-    return render_template("collection_edit.html")
+    collection = Collection.query.get_or_404(id)
+    form = FlashcardCollectionEditForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        collection.name = name
+        collection.description = description
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template("collection_edit.html", form=form)
 
 
 @main.route("/<int:id>/delete", methods=["GET", "POST"])
@@ -72,5 +81,8 @@ def add_header(r):
     Add headers to both force latest IE rendering engine or Chrome Frame,
     and also to cache the rendered page for 10 minutes.
     """
-    r.headers["Cache-Control"] = "public, max-age=0, must-revalidate"
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers["Cache-Control"] = "public, max-age=0"
     return r

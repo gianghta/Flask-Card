@@ -9,3 +9,8 @@ class FlashcardCollectionForm(FlaskForm):
     category = StringField("Category", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[Length(min=10, max=256)])
     submit = SubmitField("Create")
+
+class FlashcardCollectionEditForm(FlaskForm):
+    name = StringField("Collection name", validators=[DataRequired()])
+    description = TextAreaField("Description", validators=[Length(min=10, max=256)])
+    submit = SubmitField("Save")
