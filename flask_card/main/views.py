@@ -1,39 +1,70 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .. import db
-from ..models import Collection
+from ..models import Collection, Category
 from . import main
 from .form import FlashcardCollectionForm
 
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route("/", methods=["GET", "POST"])
 def index():
     if not current_user.is_authenticated:
         return render_template("landing.html")
     form = FlashcardCollectionForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         if form.validate_on_submit():
             name = form.name.data
-            category = form.category.data
+            category_data = form.category.data
+            description = form.description.data
+            category = Category.query.filter_by(name=category_data).first()
             collection = Collection.query.filter_by(name=name).first()
+            if not category:
+                category = Category(name=category_data)
+                category.user = current_user
+                db.session.add(category)
+                db.session.commit()
+                flash("New category created.")
+
             if not collection:
-                collection = Collection(name=form.name.data, category=form.name.data)
+                collection = Collection(name=name, description=description)
                 collection.user = current_user
+                collection.category = category
                 db.session.add(collection)
                 db.session.commit()
-                flash('Flashcard Collection added.')
-                return redirect(url_for('main.index'))
-            flash('Flask collection is already existed!')
-            return redirect(url_for('main.index'))
+                flash("Flashcard Collection added.")
+                return redirect(url_for("main.index"))
+            flash("Flask collection is already existed!")
+            return redirect(url_for("main.index"))
     collection = current_user.collections.order_by(Collection.timestamp.desc()).all()
     if collection:
-        return render_template("dashboard.html", user=current_user, form=form, collection=collection)
-    return render_template("dashboard.html", user=current_user, form=form, collection=[])
+        return render_template(
+            "dashboard.html", user=current_user, form=form, collection=collection
+        )
+    return render_template(
+        "dashboard.html", user=current_user, form=form, collection=[]
+    )
 
-@main.route('/profile')
+
+@main.route("/<int:id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_collection(id):
+    return render_template("collection_edit.html")
+
+
+@main.route("/<int:id>/delete", methods=["GET", "POST"])
+@login_required
+def delete_collection(id):
+    collection = Collection.query.get_or_404(id)
+    db.session.delete(collection)
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
+
+@main.route("/profile")
 @login_required
 def profile():
     return render_template("profile.html", user=current_user)
+
 
 @main.after_request
 def add_header(r):

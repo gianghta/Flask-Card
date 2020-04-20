@@ -5,7 +5,8 @@ from ..models import User
 from .. import db, login_manager
 from . import auth
 
-@auth.route('/login', methods=['GET', 'POST'])
+
+@auth.route("/login", methods=["GET", "POST"])
 def login():
     """
 
@@ -15,34 +16,36 @@ def login():
     POST: If credentials submitted is valid, redirected to dashboard/main page 
     """
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for("main.index"))
 
     form = LoginForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         if form.validate_on_submit():
             email = form.email.data
             password = form.password.data
             user = User.query.filter_by(email=email).first()
             if user and user.check_password(password=password):
                 login_user(user)
-                next_page = request.args.get('next')
-                return redirect(next_page or url_for('main.index'))
-        flash('Invalid username/password combination')
-        return redirect(url_for('auth.login'))
-    
+                next_page = request.args.get("next")
+                return redirect(next_page or url_for("main.index"))
+        flash("Invalid username/password combination")
+        return redirect(url_for("auth.login"))
+
     return render_template("login.html", form=form)
 
-@auth.route('/logout')
+
+@auth.route("/logout")
 def logout():
     """
 
     User logout method
     """
     logout_user()
-    flash('You have been logged out.')
-    return redirect(url_for('auth.login'))
+    flash("You have been logged out.")
+    return redirect(url_for("auth.login"))
 
-@auth.route('/signup', methods=['GET', 'POST'])
+
+@auth.route("/signup", methods=["GET", "POST"])
 def signup():
     """
     User sign-up page
@@ -52,7 +55,7 @@ def signup():
     """
 
     form = SignupForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         # User sign-up logic
         if form.validate_on_submit():
             name = form.name.data
@@ -64,11 +67,12 @@ def signup():
                 db.session.add(user)
                 db.session.commit()
                 login_user(user)
-                return redirect(url_for('main.index'))
-            flash('A user already existed with that email address')
-            return redirect(url_for('auth.signup'))
+                return redirect(url_for("main.index"))
+            flash("A user already existed with that email address")
+            return redirect(url_for("auth.signup"))
 
     return render_template("signup.html", form=form)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -81,5 +85,5 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def unauthorized():
     """Redirect unauthorized users to Login page."""
-    flash('You must be logged in to view that page.')
-    return redirect(url_for('auth.login'))
+    flash("You must be logged in to view that page.")
+    return redirect(url_for("auth.login"))

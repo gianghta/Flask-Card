@@ -9,12 +9,13 @@ db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 
+
 def create_app():
     """ Core app construction """
     app = Flask(__name__, instance_relative_config=False)
 
     # App configs
-    app.config.from_object('config.Configs')
+    app.config.from_object("config.Configs")
 
     # Plugins
     db.init_app(app)

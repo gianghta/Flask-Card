@@ -12,9 +12,39 @@
         </h1>
     </div>
 </section>
+<section>
+  <div class="container">
+    <span class="tag is-black">Black</span>
+<span class="tag is-dark">Dark</span>
+<span class="tag is-light">Light</span>
+<span class="tag is-white">White</span>
+<span class="tag is-primary">Primary</span>
+<span class="tag is-link">Link</span>
+<span class="tag is-info">Info</span>
+<span class="tag is-success">Success</span>
+<span class="tag is-warning">Warning</span>
+<span class="tag is-danger">Danger</span>
+  </div>
+</section>
 <section class="section">
     <div class="container">
         <div class="columns">
+          <div class="column is-3">
+            <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title is-centered">
+                      Add new collection
+                  </p>
+                </header>
+                <div class="card-content">
+                  <div class="content has-text-centered" style="color: dodgerblue;">
+                    <a href="#" id="showModal">
+                      <i class="fas fa-plus-circle fa-5x"></i>
+                    </a>
+                  </div>
+                </div>
+            </div>
+          </div>
           {% for item in collection %}
           <div class="column is-3">
             <div class="card">
@@ -25,28 +55,16 @@
                 </header>
                 <div class="card-content">
                   <div class="content has-text-centered" style="color: dodgerblue;">
-                    {{item.category}}
+                    {{item.description}}
                   </div>
                 </div>
+                <footer class="card-footer">
+                  <a href="{{url_for('main.edit_collection', id=item.id)}}" class="card-footer-item button is-warning is-outlined is-medium">Edit</a>
+                  <a href="{{url_for('main.delete_collection', id=item.id)}}" class="card-footer-item button is-danger is-outlined is-medium">Delete</a>
+                </footer>
             </div>
           </div>
           {% endfor %}
-          <div class="column is-3">
-              <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title is-centered">
-                        Add new collection
-                    </p>
-                  </header>
-                  <div class="card-content">
-                    <div class="content has-text-centered" style="color: dodgerblue;">
-                      <a href="#" id="showModal">
-                        <i class="fas fa-plus-circle fa-5x"></i>
-                      </a>
-                    </div>
-                  </div>
-              </div>
-          </div>
         </div>        
     </div>
 </section>
@@ -79,6 +97,13 @@
           <label class="label">Category</label>
           <div class="control">
             {{form.category(class_="input", type="text", placeholder="e.g Data Structures")}}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            {{form.description(class_="textarea", placeholder="e.g Hello World. Must not be more than 256 words")}}
           </div>
         </div>
       </section>
