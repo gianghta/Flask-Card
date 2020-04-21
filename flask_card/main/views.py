@@ -36,12 +36,25 @@ def index():
             flash("Flask collection is already existed!")
             return redirect(url_for("main.index"))
     collection = current_user.collections.order_by(Collection.timestamp.desc()).all()
-    if collection:
+    category = current_user.category.order_by(Category.id.desc()).all()
+    if collection and category:
         return render_template(
-            "dashboard.html", user=current_user, form=form, collection=collection
+            "dashboard.html",
+            user=current_user,
+            form=form,
+            collection=collection,
+            category=category,
+        )
+    if category:
+        return render_template(
+            "dashboard.html",
+            user=current_user,
+            form=form,
+            collection=[],
+            category=category,
         )
     return render_template(
-        "dashboard.html", user=current_user, form=form, collection=[]
+        "dashboard.html", user=current_user, form=form, collection=[], category=[]
     )
 
 
@@ -56,7 +69,7 @@ def edit_collection(id):
         collection.name = name
         collection.description = description
         db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for("main.index"))
     return render_template("collection_edit.html", form=form)
 
 
