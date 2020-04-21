@@ -21,7 +21,7 @@
           <div class="control">
             <div class="tags has-addons">
               <span class="tag is-link">{{item.name}}</span>
-              <a href="#" id="category-delete" class="tag is-delete"></a>
+              <a href="{{url_for('main.delete_category', id=item.id)}}" id="category-delete" class="tag is-delete"></a>
             </div>
           </div>
           {% endfor %}
@@ -32,8 +32,8 @@
 </section>
 <section class="section">
     <div class="container">
-        <div class="columns">
-          <div class="column is-3">
+        <div class="columns is-multiline">
+          <div class="column is-one-third-tablet is-3-desktop">
             <div class="card">
                 <header class="card-header">
                   <p class="card-header-title is-centered">
@@ -50,7 +50,7 @@
             </div>
           </div>
           {% for item in collection %}
-          <div class="column is-3">
+          <div class="column is-one-third-tablet is-3-desktop">
             <div class="card">
                 <header class="card-header">
                   <p class="card-header-title is-centered">
@@ -83,11 +83,6 @@
     </header>
     <form method="POST">
       {{form.hidden_tag()}}
-      {% for message in get_flashed_messages() %}
-          <div class="notification is-danger is-light">
-              {{ message }}
-          </div>
-      {% endfor %}
       <section class="modal-card-body">
         <!-- Content ... -->
         <div class="field">
@@ -121,4 +116,12 @@
 {% endblock %}
 
 {% block script %}
+<script>
+  $("#category-delete").click(function() {
+    if (confirm('Do you want to delete this category?')) {
+      $("category-delete").click()
+      console.log('Deleted');
+    }
+  });
+</script>
 {% endblock %}

@@ -81,6 +81,14 @@ def delete_collection(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
+@main.route("/category/<int:id>/delete", methods=["GET", "POST"])
+@login_required
+def delete_category(id):
+    category = Category.query.get_or_404(id)
+    db.session.delete(category)
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
 
 @main.route("/profile")
 @login_required
