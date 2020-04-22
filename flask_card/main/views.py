@@ -89,6 +89,10 @@ def delete_category(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
+@main.route("/flashcard")
+@login_required
+def flashcard_dashboard():
+    return render_template("flashcardboard.html")
 
 @main.route("/profile")
 @login_required
