@@ -4,11 +4,141 @@
 <section class="section is-medium">
     <div class="container">
       <div class="columns is-vcentered">
-        <div class="column has-text-centered">
-          <h1 class="title">This collection currently has no flashcards</h1>
-          <p class="subtitle">Try adding some</p>
+          <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+            <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title is-centered">
+                      Add new flashcard
+                  </p>
+                </header>
+                <div class="card-content">
+                  <div class="content has-text-centered" style="color: dodgerblue;">
+                    <a href="#" id="showModal">
+                      <i class="fas fa-plus-circle fa-5x"></i>
+                    </a>
+                  </div>
+                </div>
+            </div>
+          </div>
+        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+            <div class="card">
+                <div class="card-content">
+                  <p class="title">
+                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
+                  </p>
+                  <p class="subtitle">
+                    Jeff Atwood
+                  </p>
+                </div>
+                <footer class="card-footer">
+                  <p class="card-footer-item">
+                    <span>
+                        <a href="https://twitter.com/codinghorror/status/506010907021828096">Edit</a>
+                    </span>
+                  </p>
+                  <p class="card-footer-item">
+                    <span>
+                        <a href="#">Delete</a>
+                    </span>
+                  </p>
+                </footer>
+            </div>
+        </div>
+        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+            <div class="card">
+                <div class="card-content">
+                  <p class="title">
+                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
+                  </p>
+                  <p class="subtitle">
+                    Jeff Atwood
+                  </p>
+                </div>
+                <footer class="card-footer">
+                  <p class="card-footer-item">
+                    <span>
+                      View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+                    </span>
+                  </p>
+                  <p class="card-footer-item">
+                    <span>
+                      Share on <a href="#">Facebook</a>
+                    </span>
+                  </p>
+                </footer>
+            </div>
+        </div>
+        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+            <div class="card">
+                <div class="card-content">
+                  <p class="title">
+                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
+                  </p>
+                  <p class="subtitle">
+                    Jeff Atwood
+                  </p>
+                </div>
+                <footer class="card-footer">
+                  <p class="card-footer-item">
+                    <span>
+                      View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+                    </span>
+                  </p>
+                  <p class="card-footer-item">
+                    <span>
+                      Share on <a href="#">Facebook</a>
+                    </span>
+                  </p>
+                </footer>
+            </div>
         </div>
       </div>
     </div>
 </section>
+
+<!-- Form to add a new collection -->
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Collection Information</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <form method="POST">
+      {{form.hidden_tag()}}
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <div class="field">
+          <label class="label">{{form.question.label}}</label>
+          <div class="control">
+            {{form.question(class_="input", type="text", placeholder="e.g Quiz on Algorithms")}}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">{{form.answer.label}}</label>
+          <div class="control">
+            {{form.answer(class_="textarea", placeholder="e.g Hello World")}}
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <!-- <button class="button is-success">Create</button> -->
+        {{form.submit(class_="button is-success")}}
+      </footer>
+  </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $("#showModal").click(function() {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".delete").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+</script>
 {% endblock %}

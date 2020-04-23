@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .. import db
 from ..models import Collection, Category
 from . import main
-from .form import FlashcardCollectionForm, FlashcardCollectionEditForm
+from .form import FlashcardCollectionForm, FlashcardCollectionEditForm, FlashcardForm
 
 
 @main.route("/", methods=["GET", "POST"])
@@ -89,10 +89,12 @@ def delete_category(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
-@main.route("/flashcard")
+@main.route("/flashcard/<name>")
 @login_required
-def flashcard_dashboard():
-    return render_template("flashcardboard.html")
+def flashcard_dashboard(name):
+    form = FlashcardForm()
+    collection = Collection.query.filter_by(name=name).first()
+    return render_template("flashcardboard.html", form=form)
 
 @main.route("/profile")
 @login_required

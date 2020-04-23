@@ -57,7 +57,7 @@
                       {{item.name}}
                   </p>
                 </header>
-                <div class="card-content">
+                <div class="card-content" onclick="">
                   <div class="content has-text-centered" style="color: dodgerblue;">
                     {{item.description}}
                   </div>
@@ -69,7 +69,7 @@
             </div>
           </div>
           {% endfor %}
-        </div>        
+        </div>
     </div>
 </section>
 
@@ -91,7 +91,7 @@
             {{form.name(class_="input", type="text", placeholder="e.g Quiz on Algorithms")}}
           </div>
         </div>
-        
+
         <div class="field">
           <label class="label">Category</label>
           <div class="control">
@@ -118,10 +118,19 @@
 {% block script %}
 <script>
   $("#category-delete").click(function() {
-    if (confirm('Do you want to delete this category?')) {
+    if (confirm('Do you want to delete this category? This will also delete all collections in the same category')) {
       $("category-delete").click()
       console.log('Deleted');
     }
   });
+</script>
+<script>
+    $("#showModal").click(function() {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".delete").click(function() {
+        $(".modal").removeClass("is-active");
+    });
 </script>
 {% endblock %}

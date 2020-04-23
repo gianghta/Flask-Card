@@ -41,7 +41,7 @@
         </div>
     </nav>
     <!-- END NAV -->
-    
+
     <!-- Main content of the page -->
     {% block content %}
     {% endblock %}
@@ -70,15 +70,6 @@
                 $('#navbar-burger-id').addClass('is-active');
                 $('#navbar-menu-id').addClass('is-active');
             }
-        });
-    </script>
-    <script>
-        $("#showModal").click(function() {
-            $(".modal").addClass("is-active");  
-        });
-
-        $(".delete").click(function() {
-            $(".modal").removeClass("is-active");
         });
     </script>
     {% block script %}
