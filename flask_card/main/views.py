@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .. import db
-from ..models import Collection, Category
+from ..models import Collection, Category, Flashcard
 from . import main
 from .form import FlashcardCollectionForm, FlashcardCollectionEditForm, FlashcardForm
 
@@ -89,12 +89,25 @@ def delete_category(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
-@main.route("/flashcard/<name>")
+@main.route("/<name>/flashcard", methods=["GET", "POST"])
 @login_required
 def flashcard_dashboard(name):
     form = FlashcardForm()
     collection = Collection.query.filter_by(name=name).first()
-    return render_template("flashcardboard.html", form=form)
+    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id)
+    if form.validate_on_submit():
+        question = form.question.data
+        answer = form.answer.data
+        flashcard = Flashcard.query.filter_by(question=question, answer=answer).first()
+        if not flashcard:
+            flashcard = Flashcard(question=question, answer=answer)
+            flashcard.collection = collection
+            db.session.add(flashcard)
+            db.session.commit()
+            flash("Flashcard added.")
+            return redirect(url_for("main.flashcard_dashboard", name=collection.name))
+
+    return render_template("flashcardboard.html", form=form, collection=collection, flashcard_collection=flashcard_collection)
 
 @main.route("/profile")
 @login_required

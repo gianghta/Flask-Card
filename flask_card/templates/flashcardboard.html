@@ -1,99 +1,64 @@
 {% extends "base.html" %}
 
+{% block style %}
+<link rel="stylesheet" href="../static/css/dashboard.css">
+{% endblock %}
+
 {% block content %}
+<section class="section first-section">
+  <div class="container">
+      <h1 class="title status-bar">
+        Collection: {{ collection.name }}
+      </h1>
+  </div>
+</section>
 <section class="section is-medium">
-    <div class="container">
-      <div class="columns is-vcentered">
-          <div class="column has-text-centered is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title is-centered">
-                      Add new flashcard
-                  </p>
-                </header>
-                <div class="card-content">
-                  <div class="content has-text-centered" style="color: dodgerblue;">
-                    <a href="#" id="showModal">
-                      <i class="fas fa-plus-circle fa-5x"></i>
-                    </a>
-                  </div>
-                </div>
-            </div>
-          </div>
-        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <div class="card-content">
-                  <p class="title">
-                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-                  </p>
-                  <p class="subtitle">
-                    Jeff Atwood
-                  </p>
-                </div>
-                <footer class="card-footer">
-                  <p class="card-footer-item">
-                    <span>
-                        <a href="https://twitter.com/codinghorror/status/506010907021828096">Edit</a>
-                    </span>
-                  </p>
-                  <p class="card-footer-item">
-                    <span>
-                        <a href="#">Delete</a>
-                    </span>
-                  </p>
-                </footer>
-            </div>
-        </div>
-        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <div class="card-content">
-                  <p class="title">
-                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-                  </p>
-                  <p class="subtitle">
-                    Jeff Atwood
-                  </p>
-                </div>
-                <footer class="card-footer">
-                  <p class="card-footer-item">
-                    <span>
-                      View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-                    </span>
-                  </p>
-                  <p class="card-footer-item">
-                    <span>
-                      Share on <a href="#">Facebook</a>
-                    </span>
-                  </p>
-                </footer>
-            </div>
-        </div>
-        <div class="column has-text-centered is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <div class="card-content">
-                  <p class="title">
-                    “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
-                  </p>
-                  <p class="subtitle">
-                    Jeff Atwood
-                  </p>
-                </div>
-                <footer class="card-footer">
-                  <p class="card-footer-item">
-                    <span>
-                      View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-                    </span>
-                  </p>
-                  <p class="card-footer-item">
-                    <span>
-                      Share on <a href="#">Facebook</a>
-                    </span>
-                  </p>
-                </footer>
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+        <div class="card">
+            <header class="card-header">
+              <p class="card-header-title is-centered">
+                  Add new flashcard
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content has-text-centered" style="color: dodgerblue;">
+                <a href="#" id="showModal">
+                  <i class="fas fa-plus-circle fa-5x"></i>
+                </a>
+              </div>
             </div>
         </div>
       </div>
+
+      {% for flashcard in flashcard_collection %}
+      <div class="column has-text-centered is-one-third-tablet is-3-desktop">
+          <div class="card">
+              <div class="card-content">
+                <div class="content has-text-centered">
+                  <p class="title">
+                    {{ flashcard.question }}
+                  </p>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                      <a href="https://twitter.com/codinghorror/status/506010907021828096">Edit</a>
+                  </span>
+                </p>
+                <p class="card-footer-item">
+                  <span>
+                      <a href="#">Delete</a>
+                  </span>
+                </p>
+              </footer>
+          </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
 
 <!-- Form to add a new collection -->

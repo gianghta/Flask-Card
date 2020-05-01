@@ -18,5 +18,5 @@ class FlashcardCollectionEditForm(FlaskForm):
 
 class FlashcardForm(FlaskForm):
     question = StringField("Question", validators=[DataRequired()])
-    answer = TextAreaField("Answer", validators=[DataRequired() ,Length(min=10)])
+    answer = TextAreaField("Answer", validators=[DataRequired()])
     submit = SubmitField("Create")
