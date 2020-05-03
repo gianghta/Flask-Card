@@ -5,6 +5,9 @@ from ..models import Collection, Category, Flashcard
 from . import main
 from .form import FlashcardCollectionForm, FlashcardCollectionEditForm, FlashcardForm
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 
 @main.route("/", methods=["GET", "POST"])
 def index():
@@ -113,14 +116,24 @@ def flashcard_dashboard(name):
 @login_required
 def flashcard_preview(name):
     collection = Collection.query.filter_by(name=name).first()
-    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id)
+    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
 
-    return render_template("flashcard_showcase.html", collection=flashcard_collection)
+    collection = [
+        row2dict(row) for row in flashcard_collection
+    ]
+
+    return render_template("flashcard_showcase.html", collection=collection)
 
 @main.route("/profile")
 @login_required
 def profile():
     return render_template("profile.html", user=current_user)
+
+def row2dict(row):
+    d = {}
+    for column in row.__table__.columns:
+        d[column.name] = str(getattr(row, column.name))
+    return d
 
 
 @main.after_request
