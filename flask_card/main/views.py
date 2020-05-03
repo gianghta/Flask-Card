@@ -109,6 +109,14 @@ def flashcard_dashboard(name):
 
     return render_template("flashcardboard.html", form=form, collection=collection, flashcard_collection=flashcard_collection)
 
+@main.route("/<name>/flashcard/preview")
+@login_required
+def flashcard_preview(name):
+    collection = Collection.query.filter_by(name=name).first()
+    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id)
+
+    return render_template("flashcard_showcase.html", collection=flashcard_collection)
+
 @main.route("/profile")
 @login_required
 def profile():
