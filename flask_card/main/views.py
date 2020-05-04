@@ -4,9 +4,7 @@ from .. import db
 from ..models import Collection, Category, Flashcard
 from . import main
 from .form import FlashcardCollectionForm, FlashcardCollectionEditForm, FlashcardForm
-
-import logging
-logging.basicConfig(level=logging.DEBUG)
+import json
 
 
 @main.route("/", methods=["GET", "POST"])
@@ -110,7 +108,15 @@ def flashcard_dashboard(name):
             flash("Flashcard added.")
             return redirect(url_for("main.flashcard_dashboard", name=collection.name))
 
-    return render_template("flashcardboard.html", form=form, collection=collection, flashcard_collection=flashcard_collection)
+    return render_template("/flashcard/flashcardboard.html", form=form, collection=collection, flashcard_collection=flashcard_collection)
+
+@main.route("/<name>/flashcard/delete/<int:id>", methods=["GET", "POST"])
+@login_required
+def delete_flashcard(name, id):
+    flashcard = Flashcard.query.get_or_404(id)
+    db.session.delete(flashcard)
+    db.session.commit()
+    return redirect(url_for('main.flashcard_dashboard', name=name))
 
 @main.route("/<name>/flashcard/preview")
 @login_required
@@ -118,23 +124,26 @@ def flashcard_preview(name):
     collection = Collection.query.filter_by(name=name).first()
     flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
 
-    collection = [
+    flashcards = [
         row2dict(row) for row in flashcard_collection
     ]
 
-    return render_template("flashcard_showcase.html", collection=collection)
-
-@main.route("/profile")
-@login_required
-def profile():
-    return render_template("profile.html", user=current_user)
+    return render_template("/flashcard/flashcard_showcase.html", flashcards=json.dumps(flashcards))
 
 def row2dict(row):
+    """
+    Helper method that convert sqlalchemy base class into dictionary
+    to import to front end JS script for JSON conversion
+    """
     d = {}
     for column in row.__table__.columns:
         d[column.name] = str(getattr(row, column.name))
     return d
 
+@main.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)
 
 @main.after_request
 def add_header(r):

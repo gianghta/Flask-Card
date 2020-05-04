@@ -32,44 +32,53 @@
 </section>
 <section class="section">
     <div class="container">
-        <div class="columns is-multiline">
-          <div class="column is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title is-centered">
-                      Add new collection
-                  </p>
-                </header>
-                <div class="card-content">
-                  <div class="content has-text-centered" style="color: dodgerblue;">
-                    <a href="#" id="showModal">
-                      <i class="fas fa-plus-circle fa-5x"></i>
-                    </a>
-                  </div>
+      {% include 'partials/breadcrumbs.html' %}
+      <div class="columns is-multiline">
+        <div class="column is-one-third-tablet is-3-desktop">
+          <div class="card">
+              <header class="card-header">
+                <p class="card-header-title is-centered">
+                    Add new collection
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content has-text-centered" style="color: dodgerblue;">
+                  <a href="#" id="showModal">
+                    <i class="fas fa-plus-circle fa-5x"></i>
+                  </a>
                 </div>
-            </div>
+              </div>
           </div>
-          {% for item in collection %}
-          <div class="column is-one-third-tablet is-3-desktop">
-            <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title is-centered">
-                    <a href="{{url_for('main.flashcard_dashboard', name=item.name)}}">{{item.name}}</a>
-                  </p>
-                </header>
-                <div class="card-content" onclick="">
-                  <div class="content has-text-centered" style="color: dodgerblue;">
-                    {{item.description}}
-                  </div>
-                </div>
-                <footer class="card-footer">
-                  <a href="{{url_for('main.edit_collection', id=item.id)}}" class="card-footer-item button is-warning is-medium">Edit</a>
-                  <a href="{{url_for('main.delete_collection', id=item.id)}}" class="card-footer-item button is-danger is-medium">Delete</a>
-                </footer>
-            </div>
-          </div>
-          {% endfor %}
         </div>
+        {% for item in collection %}
+        <div class="column is-one-third-tablet is-3-desktop">
+          <div class="card">
+              <header class="card-header">
+                <p class="card-header-title is-centered">
+                  <a href="{{url_for('main.flashcard_dashboard', name=item.name)}}">{{item.name}}</a>
+                </p>
+              </header>
+              <div class="card-content" onclick="">
+                <div class="content has-text-centered" style="color: black;">
+                  {{item.description}}
+                </div>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                    <a href="{{url_for('main.edit_collection', id=item.id)}}">Edit</a>
+                  </span>
+                </p>
+                <p class="card-footer-item">
+                  <span>
+                    <a href="{{url_for('main.delete_collection', id=item.id)}}">Delete</a>
+                  </span>
+                </p>                
+              </footer>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
 </section>
 

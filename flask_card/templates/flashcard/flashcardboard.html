@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block style %}
-<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/flashcard_board.css">
 {% endblock %}
 
 {% block content %}
@@ -12,8 +12,9 @@
       </h1>
   </div>
 </section>
-<section class="section is-medium">
+<section>
   <div class="container">
+    {% include 'partials/breadcrumbs.html' %}
     <div class="columns is-vcentered is-multiline">
       <div class="column has-text-centered is-one-third-tablet is-3-desktop">
         <div class="card">
@@ -37,7 +38,7 @@
           <div class="card">
               <div class="card-content">
                 <div class="content has-text-centered">
-                  <p class="title">
+                  <p>
                     {{ flashcard.question }}
                   </p>
                 </div>
@@ -50,7 +51,7 @@
                 </p>
                 <p class="card-footer-item">
                   <span>
-                      <a href="#">Delete</a>
+                      <a href="{{url_for('main.delete_flashcard',name=collection.name, id=flashcard.id)}}">Delete</a>
                   </span>
                 </p>
               </footer>
