@@ -82,6 +82,7 @@ def delete_collection(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
+
 @main.route("/category/<int:id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_category(id):
@@ -90,12 +91,14 @@ def delete_category(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
+
 @main.route("/<name>/flashcard", methods=["GET", "POST"])
 @login_required
 def flashcard_dashboard(name):
     form = FlashcardForm()
     collection = Collection.query.filter_by(name=name).first()
-    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id)
+    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
+
     if form.validate_on_submit():
         question = form.question.data
         answer = form.answer.data
@@ -108,7 +111,14 @@ def flashcard_dashboard(name):
             flash("Flashcard added.")
             return redirect(url_for("main.flashcard_dashboard", name=collection.name))
 
-    return render_template("/flashcard/flashcardboard.html", form=form, collection=collection, flashcard_collection=flashcard_collection)
+    return render_template(
+        "/flashcard/flashcardboard.html",
+        form=form,
+        collection=collection,
+        flashcard_collection=flashcard_collection,
+        type=type(flashcard_collection),
+    )
+
 
 @main.route("/<name>/flashcard/delete/<int:id>", methods=["GET", "POST"])
 @login_required
@@ -116,7 +126,8 @@ def delete_flashcard(name, id):
     flashcard = Flashcard.query.get_or_404(id)
     db.session.delete(flashcard)
     db.session.commit()
-    return redirect(url_for('main.flashcard_dashboard', name=name))
+    return redirect(url_for("main.flashcard_dashboard", name=name))
+
 
 @main.route("/<name>/flashcard/preview")
 @login_required
@@ -124,11 +135,14 @@ def flashcard_preview(name):
     collection = Collection.query.filter_by(name=name).first()
     flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
 
-    flashcards = [
-        row2dict(row) for row in flashcard_collection
-    ]
+    flashcards = [row2dict(row) for row in flashcard_collection]
 
-    return render_template("/flashcard/flashcard_showcase.html", flashcards=json.dumps(flashcards))
+    return render_template(
+        "/flashcard/flashcard_showcase.html",
+        collection=collection,
+        flashcards=json.dumps(flashcards),
+    )
+
 
 def row2dict(row):
     """
@@ -140,10 +154,12 @@ def row2dict(row):
         d[column.name] = str(getattr(row, column.name))
     return d
 
+
 @main.route("/profile")
 @login_required
 def profile():
     return render_template("profile.html", user=current_user)
+
 
 @main.after_request
 def add_header(r):

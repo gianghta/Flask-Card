@@ -9,8 +9,10 @@ db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 
+
 def page_not_found(e):
     return render_template("404page.html"), 404
+
 
 def create_app():
     """ Core app construction """

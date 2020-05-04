@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from 'partials/breadcrumbs.html' import show_breadcrumbs with context %}
 
 {% block style %}
 <link rel="stylesheet" href="/static/css/flashcard_preview.css">
@@ -10,6 +11,9 @@
 
 <!-- Start Hero Carousel -->
 <section class="section">
+    <div class="container is-center">
+        {{show_breadcrumbs('flashcards', collection.name, 'Preview')}}
+    </div>
     <header>
         <h1 class="title">Click Card to Reveal Answer</h1>
     </header>

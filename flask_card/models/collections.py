@@ -10,7 +10,9 @@ class Collection(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
-    flashcards = db.relationship("Flashcard", cascade="all,delete", backref="collection", lazy="dynamic")
+    flashcards = db.relationship(
+        "Flashcard", cascade="all,delete", backref="collection", lazy="dynamic"
+    )
 
     def __init__(self, name, description):
         self.name = name

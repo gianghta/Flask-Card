@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from 'partials/breadcrumbs.html' import show_breadcrumbs with context %}
 
 {% block style %}
 <link rel="stylesheet" href="../static/css/dashboard.css">
@@ -32,7 +33,7 @@
 </section>
 <section class="section">
     <div class="container">
-      {% include 'partials/breadcrumbs.html' %}
+      {{show_breadcrumbs('dashboard')}}
       <div class="columns is-multiline">
         <div class="column is-one-third-tablet is-3-desktop">
           <div class="card">

@@ -1,12 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito");
-
 /***** GENERAL STYLES *****/
 body {
   overflow: hidden;
-}
-
-* {
-  font-family: "Nunito", Arial, Helvetica, sans-serif;
 }
 
 p {
