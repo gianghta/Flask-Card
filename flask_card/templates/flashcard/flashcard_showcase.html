@@ -56,10 +56,12 @@
     function load() {
         return new Promise((resolve, reject) => {
             window.onload = () => {
+                console.log(flashcardData.collection)
                 flashcardData.collection.forEach((item) => {
                     data = {
                         question: item.question,
-                        answer: item.answer
+                        answer: item.answer,
+                        inputType: item.input_type
                     };
                     questions.push(data);
                 })
@@ -80,8 +82,12 @@
         const questionMd = md.render(questions[current].question);
         const answerMd = md.render(questions[current].answer);
 
-        front.innerHTML = `<div class="container is-fluid">${questionMd}</div>`;
-        back.innerHTML = `<div class="container is-fluid">${answerMd}</div>`;
+        front.innerHTML = `<div class="container is-fluid has-text-centered">${questionMd}</div>`;
+        if (questions[current].inputType === 'markdown') {
+            back.innerHTML = `<div class="container is-fluid">${answerMd}</div>`;
+        } else {
+            back.innerHTML = `<div class="container is-fluid has-text-centered">${answerMd}</div>`;
+        }
         count.innerHTML = `<p>${[current + 1]} / ${questions.length}</p>`;
         current++;
     }
@@ -97,8 +103,16 @@
     function getPrevCard() {
     if (current > 1) {
         resetCard();
-        front.innerHTML = `<p>${questions[current - 2].question}</p>`;
-        back.innerHTML = `<p>${questions[current - 2].answer}</p>`;
+        const md = window.markdownit();
+        const questionMd = md.render(questions[current - 2].question);
+        const answerMd = md.render(questions[current - 2].answer);
+
+        front.innerHTML = `<div class="container is-fluid has-text-centered">${questionMd}</div>`;
+        if (questions[current - 2].inputType === 'markdown') {
+            back.innerHTML = `<div class="container is-fluid">${answerMd}</div>`;
+        } else {
+            back.innerHTML = `<div class="container is-fluid has-text-centered">${answerMd}</div>`;
+        }
         count.innerHTML = `<p>${[current - 1]} / ${questions.length}</p>`;
         current--;
     } else {

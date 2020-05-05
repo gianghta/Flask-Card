@@ -102,9 +102,11 @@ def flashcard_dashboard(name):
     if form.validate_on_submit():
         question = form.question.data
         answer = form.answer.data
-        flashcard = Flashcard.query.filter_by(question=question, answer=answer).first()
+        input_type = form.input_type.data
+        flashcard = Flashcard.query.filter_by(question=question, answer=answer, input_type=input_type).first()
+
         if not flashcard:
-            flashcard = Flashcard(question=question, answer=answer)
+            flashcard = Flashcard(question=question, answer=answer, input_type=input_type)
             flashcard.collection = collection
             db.session.add(flashcard)
             db.session.commit()
@@ -115,8 +117,7 @@ def flashcard_dashboard(name):
         "/flashcard/flashcardboard.html",
         form=form,
         collection=collection,
-        flashcard_collection=flashcard_collection,
-        type=type(flashcard_collection),
+        flashcard_collection=flashcard_collection
     )
 
 
