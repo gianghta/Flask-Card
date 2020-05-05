@@ -7,11 +7,11 @@ from wtforms.validators import DataRequired, EqualTo, Length
 class FlashcardCollectionForm(FlaskForm):
     name = StringField("Collection name", validators=[DataRequired()])
     category = StringField("Category", validators=[DataRequired()])
-    description = TextAreaField("Description", validators=[Length(min=10, max=256)])
+    description = TextAreaField("Description", validators=[Length(max=256)])
     submit = SubmitField("Create")
 
 
 class FlashcardCollectionEditForm(FlaskForm):
     name = StringField("Collection name", validators=[DataRequired()])
-    description = TextAreaField("Description", validators=[Length(min=10, max=256)])
+    description = TextAreaField("Description", validators=[Length(max=256)])
     submit = SubmitField("Save")
