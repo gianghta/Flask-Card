@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .. import db
-from ..models import Collection, Category, Flashcard
+from ..models import Collection, Category
 from . import main
-from .form import FlashcardCollectionForm, FlashcardCollectionEditForm, FlashcardForm
-import json
+from .form import FlashcardCollectionForm, FlashcardCollectionEditForm
 
 
 @main.route("/", methods=["GET", "POST"])
@@ -73,7 +72,6 @@ def edit_collection(id):
         return redirect(url_for("main.index"))
     return render_template("collection_edit.html", form=form)
 
-
 @main.route("/<int:id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_collection(id):
@@ -82,7 +80,6 @@ def delete_collection(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
-
 @main.route("/category/<int:id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_category(id):
@@ -90,77 +87,6 @@ def delete_category(id):
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("main.index"))
-
-
-@main.route("/<name>/flashcard", methods=["GET", "POST"])
-@login_required
-def flashcard_dashboard(name):
-    form = FlashcardForm()
-    collection = Collection.query.filter_by(name=name).first()
-    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
-
-    if form.validate_on_submit():
-        question = form.question.data
-        answer = form.answer.data
-        input_type = form.input_type.data
-        flashcard = Flashcard.query.filter_by(question=question, answer=answer, input_type=input_type).first()
-
-        if not flashcard:
-            flashcard = Flashcard(question=question, answer=answer, input_type=input_type)
-            flashcard.collection = collection
-            db.session.add(flashcard)
-            db.session.commit()
-            flash("Flashcard added.")
-            return redirect(url_for("main.flashcard_dashboard", name=collection.name))
-
-    return render_template(
-        "/flashcard/flashcardboard.html",
-        form=form,
-        collection=collection,
-        flashcard_collection=flashcard_collection
-    )
-
-
-@main.route("/<name>/flashcard/delete/<int:id>", methods=["GET", "POST"])
-@login_required
-def delete_flashcard(name, id):
-    flashcard = Flashcard.query.get_or_404(id)
-    db.session.delete(flashcard)
-    db.session.commit()
-    return redirect(url_for("main.flashcard_dashboard", name=name))
-
-
-@main.route("/<name>/flashcard/preview")
-@login_required
-def flashcard_preview(name):
-    collection = Collection.query.filter_by(name=name).first()
-    flashcard_collection = Flashcard.query.filter_by(collection_id=collection.id).all()
-
-    flashcards = [row2dict(row) for row in flashcard_collection]
-
-    return render_template(
-        "/flashcard/flashcard_showcase.html",
-        collection=collection,
-        flashcards=json.dumps(flashcards),
-    )
-
-
-def row2dict(row):
-    """
-    Helper method that convert sqlalchemy base class into dictionary
-    to import to front end JS script for JSON conversion
-    """
-    d = {}
-    for column in row.__table__.columns:
-        d[column.name] = str(getattr(row, column.name))
-    return d
-
-
-@main.route("/profile")
-@login_required
-def profile():
-    return render_template("profile.html", user=current_user)
-
 
 @main.after_request
 def add_header(r):

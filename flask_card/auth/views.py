@@ -9,7 +9,6 @@ from . import auth
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     """
-
     User login page
 
     GET: Serve login page
@@ -31,13 +30,12 @@ def login():
         flash("Invalid username/password combination")
         return redirect(url_for("auth.login"))
 
-    return render_template("login.html", form=form)
+    return render_template("/auth/login.html", form=form)
 
 
 @auth.route("/logout")
 def logout():
     """
-
     User logout method
     """
     logout_user()
@@ -71,7 +69,7 @@ def signup():
             flash("A user already existed with that email address")
             return redirect(url_for("auth.signup"))
 
-    return render_template("signup.html", form=form)
+    return render_template("/auth/signup.html", form=form)
 
 
 @login_manager.user_loader

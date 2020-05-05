@@ -32,8 +32,12 @@ def create_app():
     with app.app_context():
         from . import auth
         from . import main
+        from . import flashcards_board
+        from . import profile
 
         app.register_blueprint(auth.auth)
         app.register_blueprint(main.main)
+        app.register_blueprint(flashcards_board.flashcards_board)
+        app.register_blueprint(profile.profile)
 
         return app

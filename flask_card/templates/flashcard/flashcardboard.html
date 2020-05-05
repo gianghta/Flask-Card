@@ -19,9 +19,14 @@
     {% if flashcard_collection %}
     <div class="field is-grouped">
       <p class="control">
-        <a href="{{url_for('main.flashcard_preview', name=collection.name)}}" class="button is-success">
-          Test Knowledge
+        <a href="{{url_for('flashcards_board.flashcard_preview', name=collection.name)}}" class="button is-success">
+          Preview Flashcards
         </a>
+      </p>
+      <p class="control">
+        <button class="button is-link">
+          Test your knowledge
+        </button>
       </p>
     </div>
     {% endif %}
@@ -61,7 +66,7 @@
                 </p>
                 <p class="card-footer-item">
                   <span>
-                      <a href="{{url_for('main.delete_flashcard',name=collection.name, id=flashcard.id)}}">Delete</a>
+                      <a href="{{url_for('flashcards_board.delete_flashcard',name=collection.name, id=flashcard.id)}}">Delete</a>
                   </span>
                 </p>
               </footer>

@@ -15,10 +15,3 @@ class FlashcardCollectionEditForm(FlaskForm):
     name = StringField("Collection name", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[Length(min=10, max=256)])
     submit = SubmitField("Save")
-
-
-class FlashcardForm(FlaskForm):
-    question = StringField("Question", validators=[DataRequired()])
-    answer = TextAreaField("Answer", validators=[DataRequired()])
-    input_type = SelectField(u'Type', choices=[('text', 'Text'), ('markdown', 'Markdown')])
-    submit = SubmitField("Create")
