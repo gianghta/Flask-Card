@@ -18,3 +18,16 @@ pip install poetry
 ./scripts/dev.sh
 ```
 The application will be running at http://locahost:8000
+
+## Built with
+
+- **Language**: Python
+- **Framework**: Flask
+- **Testing Framework**: pytest
+- **Template Engine**: Jinja
+- **Styling Framework**: Bulma CSS
+- **Database**: postgresql
+
+## Credits to
+
+- [Markdown It](https://github.com/markdown-it/markdown-it): Use for displaying code snippet on flashcard
