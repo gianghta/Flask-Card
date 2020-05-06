@@ -30,3 +30,7 @@ The application will be running at http://locahost:8000
 ## Credits to
 
 - [Markdown It](https://github.com/markdown-it/markdown-it): Use for displaying code snippet on flashcard
+
+## License
+
+Under MIT License.
