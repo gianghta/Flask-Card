@@ -4,6 +4,16 @@
 
 **Flask Card** is a personal project for my own good. I made it as a way to memorize critical Computer Science concepts. The app supports markdown and has a testing mode to keep track of number of right/wrong questions from last test.
 
+## Usage
+
+- Create an account and log in to dashboard
+- Create/Update and Delete different flashcard collections in dashboard
+- Flashcard has corresponding category. Delete category delete all collections under it
+- Each collection has a dashboard of flashcards for CRUD operation on them
+- Each flashcard can be either text or markdown
+- A preview mode that check on user's understanding and memorization on the subject
+- Profile page is used to account related.
+
 ## Getting started
 
 1. Ensure [Docker](https://www.docker.com) is installed and running
@@ -13,11 +23,41 @@
 pip install poetry
 ```
 
-3. Run the project
+3. Create an .env file in project in the format
+```
+SECRET_KEY=${your private key}
+FLASK_APP=wsgi.py
+FLASK_ENV=development
+FLASK_RUN_PORT=8000
+FLASK_RUN_HOST=0.0.0.0
+SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+SQLALCHEMY_TRACK_MODIFICATIONS=0
+```
+
+4. Run the project
 ```
 ./scripts/dev.sh
 ```
 The application will be running at http://locahost:8000
+
+## DB Migration
+Update the database host environment variables file in the database URI section to:
+```
+SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
+```
+
+Run Flask migration command:
+```
+poetry run flask db migrate -m "${YOUR COMMENT}"
+poetry run flask db upgrade
+```
+
+Change the database host back to:
+```
+SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+```
+
+Run the `./script/dev.sh` file in terminal to start server again.
 
 ## Built with
 
