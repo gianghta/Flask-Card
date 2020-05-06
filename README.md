@@ -6,13 +6,13 @@
 
 ## Usage
 
-- Create an account and log in to dashboard
-- Create/Update and Delete different flashcard collections in dashboard
-- Flashcard has corresponding category. Delete category delete all collections under it
-- Each collection has a dashboard of flashcards for CRUD operation on them
-- Each flashcard can be either text or markdown
-- A preview mode that check on user's understanding and memorization on the subject
-- Profile page is used to account related.
+- Create an account and log in to dashboard.
+- Create/Update and Delete different flashcard collections in dashboard.
+- Flashcard has corresponding category. Delete category delete all collections under it.
+- Each collection has a dashboard of flashcards for CRUD operation on them.
+- Each flashcard can be either text or markdown.
+- A preview mode that checks user's understanding and memorization on the subject.
+- Profile page is used for account related functionalities.
 
 ## Getting started
 
