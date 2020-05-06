@@ -23,7 +23,6 @@ The application will be running at http://locahost:8000
 
 - **Language**: Python
 - **Framework**: Flask
-- **Testing Framework**: pytest
 - **Template Engine**: Jinja
 - **Styling Framework**: Bulma CSS
 - **Database**: postgresql

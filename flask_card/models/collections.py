@@ -8,6 +8,8 @@ class Collection(db.Model):
     name = db.Column(db.String(64), index=True)
     description = db.Column(db.String, index=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    right_answer = db.Column(db.Integer, default=0)
+    wrong_answer = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
     flashcards = db.relationship(

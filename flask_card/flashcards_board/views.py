@@ -3,7 +3,7 @@ from flask_login import login_required
 from .. import db
 from ..models import Collection, Flashcard
 from . import flashcards_board
-from .form import FlashcardForm
+from .form import FlashcardForm, FlashcardEditForm
 import json
 
 
@@ -34,6 +34,21 @@ def flashcard_dashboard(name):
         collection=collection,
         flashcard_collection=flashcard_collection
     )
+
+@flashcards_board.route("/<name>/flashcard/<int:id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_flashcard(name, id):
+    collection = Collection.query.filter_by(name=name).first()
+    flashcard = Flashcard.query.get_or_404(id)
+    form = FlashcardEditForm()
+    if form.validate_on_submit():
+        flashcard.question = form.question.data
+        flashcard.answer = form.answer.data
+        flashcard.input_type = form.input_type.data
+        db.session.commit()
+        return redirect(url_for("flashcards_board.flashcard_dashboard", name=collection.name))
+    return render_template("/flashcard/flashcard_edit.html", form=form, flashcard=flashcard)
+
 
 
 @flashcards_board.route("/<name>/flashcard/delete/<int:id>", methods=["GET", "POST"])

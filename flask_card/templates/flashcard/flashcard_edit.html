@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <form method="POST">
+            {{form.hidden_tag()}}
+            {% for message in get_flashed_messages() %}
+            <div class="notification is-danger is-light">
+                {{ message }}
+            </div>
+            {% endfor %}
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">{{form.question.label}}</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                        {{form.question(class_="input", type="text", placeholder="e.g What is a hashmap?")}}
+                    </div>
+                    {% if form.question.errors %}
+                    <p class="help is-danger">
+                        This field is required
+                    </p>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+            
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">{{form.answer.label}}</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                        {{form.answer(class_="textarea", placeholder="e.g A key value pair data structure")}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">{{form.input_type.label}}</label>
+                </div>
+                <div class="field-body">
+                  <div class="field is-narrow">
+                    <div class="control">
+                      <div class="select is-fullwidth">
+                        {{form.input_type}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                    <div class="control">
+                        {{form.submit(class_="button is-primary")}}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>            
+</section>
+{% endblock %}
