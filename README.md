@@ -71,6 +71,14 @@ Run the `./script/dev.sh` file in terminal to start server again.
 
 - [Markdown It](https://github.com/markdown-it/markdown-it): Use for displaying code snippet on flashcard
 
+## Screenshots
+
+![Login Page](./screenshots/login.png)
+
+![Dashboard](./screenshots/dashboard.png)
+
+![Preview Flashcards](./screenshots/preview-mode.png)
+
 ## License
 
 Under MIT License.
