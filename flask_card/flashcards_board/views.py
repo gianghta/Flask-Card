@@ -18,22 +18,29 @@ def flashcard_dashboard(name):
         question = form.question.data
         answer = form.answer.data
         input_type = form.input_type.data
-        flashcard = Flashcard.query.filter_by(question=question, answer=answer, input_type=input_type).first()
+        flashcard = Flashcard.query.filter_by(
+            question=question, answer=answer, input_type=input_type
+        ).first()
 
         if not flashcard:
-            flashcard = Flashcard(question=question, answer=answer, input_type=input_type)
+            flashcard = Flashcard(
+                question=question, answer=answer, input_type=input_type
+            )
             flashcard.collection = collection
             db.session.add(flashcard)
             db.session.commit()
             flash("Flashcard added.")
-            return redirect(url_for("flashcards_board.flashcard_dashboard", name=collection.name))
+            return redirect(
+                url_for("flashcards_board.flashcard_dashboard", name=collection.name)
+            )
 
     return render_template(
         "/flashcard/flashcardboard.html",
         form=form,
         collection=collection,
-        flashcard_collection=flashcard_collection
+        flashcard_collection=flashcard_collection,
     )
+
 
 @flashcards_board.route("/<name>/flashcard/<int:id>/edit", methods=["GET", "POST"])
 @login_required
@@ -46,9 +53,12 @@ def edit_flashcard(name, id):
         flashcard.answer = form.answer.data
         flashcard.input_type = form.input_type.data
         db.session.commit()
-        return redirect(url_for("flashcards_board.flashcard_dashboard", name=collection.name))
-    return render_template("/flashcard/flashcard_edit.html", form=form, flashcard=flashcard)
-
+        return redirect(
+            url_for("flashcards_board.flashcard_dashboard", name=collection.name)
+        )
+    return render_template(
+        "/flashcard/flashcard_edit.html", form=form, flashcard=flashcard
+    )
 
 
 @flashcards_board.route("/<name>/flashcard/delete/<int:id>", methods=["GET", "POST"])
@@ -84,6 +94,7 @@ def row2dict(row):
     for column in row.__table__.columns:
         d[column.name] = str(getattr(row, column.name))
     return d
+
 
 @flashcards_board.after_request
 def add_header(r):

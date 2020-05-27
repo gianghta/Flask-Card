@@ -11,6 +11,7 @@ from .. import db
 def profile_page():
     return render_template("/profile/profile.html", user=current_user)
 
+
 @profile.route("/profile/edit", methods=["GET", "POST"])
 @login_required
 def edit_profile_page():
@@ -19,7 +20,7 @@ def edit_profile_page():
         name = form.name.data
         email = form.email.data
         password = form.password.data
-        
+
         current_user.username = name
         current_user.email = email
         current_user.password = password
@@ -27,6 +28,7 @@ def edit_profile_page():
         flash("User account is updated!")
         return redirect(url_for("profile.edit_profile_page"))
     return render_template("/profile/edit_profile.html", user=current_user, form=form)
+
 
 @profile.after_request
 def add_header(r):

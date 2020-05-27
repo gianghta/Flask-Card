@@ -72,6 +72,7 @@ def edit_collection(id):
         return redirect(url_for("main.index"))
     return render_template("collection_edit.html", form=form)
 
+
 @main.route("/<int:id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_collection(id):
@@ -80,6 +81,7 @@ def delete_collection(id):
     db.session.commit()
     return redirect(url_for("main.index"))
 
+
 @main.route("/category/<int:id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_category(id):
@@ -87,6 +89,7 @@ def delete_category(id):
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("main.index"))
+
 
 @main.after_request
 def add_header(r):
